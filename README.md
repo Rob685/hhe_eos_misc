@@ -9,3 +9,11 @@ To download and use these tables,
 5. ```git checkout main```
 
 Please see the tutorials within each folder in this repo for instructions.
+
+The following table outlines the quantites provided by the equation of state module:
+
+<img width="603" alt="Screenshot 2023-12-30 at 20 01 17" src="https://github.com/Rob685/eos/assets/48569647/5c18c88b-c64a-425a-ac1b-87cb204fc16c">
+
+And the following figure provides an outline to the various miscibility curves, with EOS isentropes:
+
+<img width="634" alt="Screenshot 2023-12-31 at 14 32 46" src="https://github.com/Rob685/hhe_eos_misc/assets/48569647/b8b4326f-efc0-49ba-984e-12a483427a57">
