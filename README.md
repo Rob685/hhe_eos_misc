@@ -14,4 +14,6 @@ The following table outlines the quantites provided by the equation of state mod
 
 <img width="603" alt="Screenshot 2023-12-30 at 20 01 17" src="https://github.com/Rob685/eos/assets/48569647/5c18c88b-c64a-425a-ac1b-87cb204fc16c">
 
+In this table, the headers are the independent thermodynamic variables and the quantities are the dependent variables and derivatives. See Tejada Arevalo et al. (2024) for a full description of these quantities.
+
 
