@@ -2,6 +2,13 @@ import numpy as np
 import pandas as pd
 from scipy.interpolate import interp1d
 
+"""This file provides access to the experimental
+    H-He miscibility curve from Brygoo et al. (2021)."""
+
+brygoo = pd.read_csv('misc/brygoo_misc_errs.csv')
+brygoo['P[Mbar]'] = brygoo['P (GPa)']*0.01
+P = brygoo['P[Mbar]']
+
 def get_misc_curve(logp, sigma):
     # sigma can now be negative
     T = brygoo['T (kK)'] + sigma*brygoo['t_hi_err']

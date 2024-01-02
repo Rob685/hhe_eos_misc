@@ -7,7 +7,17 @@ from astropy.constants import k_B, m_e, m_p, m_n
 from scipy.interpolate import RegularGridInterpolator as RGI
 import pdb
 
-"""This module is for the Schottler & Redmer (2018) miscibility data"""
+"""This file reads the Schottler & Redmer (2018)immiscibility data.
+    The original data was scrapped from their papers, and the files are
+    different for each isobar. The files contain the demixing temperature
+    as a function of helium number fraction (x). 
+    
+    First, I read the files, then I use a regular grid interpolator to
+    obtain T(P, x), or the demixing temperature as a function of pressure
+    and helium number fraction. 
+    
+    Then, I return the miscibility curves in the adequate pressure range 
+    with the get_misc_curve function."""
 
 # Reading data
 
@@ -27,13 +37,9 @@ pressures = np.array([0.5, 1, 1.2, 1.5, 2, 4, 10, 24])
 mh = 1
 mhe = 4.0026
 def x_to_Y(x):
-    # x is the helium number fraction
-    # converts number fraction to mass fraction
-    #return (mhe*x/(mh*(1-x) + mhe*x)).value
     return (mhe*x/(mh*(1-x) + mhe*x))
 
 def Y_to_x(Y):
-    #return (mh*Y/(mhe*(1-Y) + mh*Y))
     return (Y/mhe/(Y/mhe + (1-Y)/mh))
 
 interp_list = []
@@ -53,17 +59,18 @@ get_t_x_rgi_cubic = RGI((pressures, xgrid), T_res, method='cubic', bounds_error=
 get_t_x_rgi_linear = RGI((pressures, xgrid), T_res, method='linear', bounds_error=False, fill_value=None)
 
 def get_misc_curve(logp, Y):
+    """This function returns the demixing temperatures and provides
+    a miscibility curve profile given pressure and helium mass fraction
+    profiels"""
     x = Y_to_x(Y)
     p_prof = 10**(logp-12)
 
-    #t_new = get_t_x_rgi_cubic(np.array([p_prof[(p_prof > 1.0) & (p_prof < 24.0)], x[(p_prof > 1.0) & (p_prof < 24.0)]]).T)
     p0_cut = 1.5
     p1_cut = 4.0
     p2_cut = 24.0
     t_new_low1 = get_t_x_rgi_linear(np.array([p_prof[(p_prof > 0.5) & (p_prof < p0_cut)], x[(p_prof > 0.5) & (p_prof <= p0_cut)]]).T) # smoothness at lower pressures
     t_new_low2 = get_t_x_rgi_cubic(np.array([p_prof[(p_prof >= p0_cut) & (p_prof < p1_cut)], x[(p_prof >= p0_cut) & (p_prof <= p1_cut)]]).T) # smoothness at lower pressures
     t_new_high = get_t_x_rgi_linear(np.array([p_prof[(p_prof > p1_cut) & (p_prof < p2_cut)], x[(p_prof > p1_cut) & (p_prof < p2_cut)]]).T) # flat at higher pressures
-    #t_new = get_t_x_rgi_cubic(np.array([p_prof, x]).T)
 
     t_new = np.concatenate([t_new_low1, t_new_low2, t_new_high])
 

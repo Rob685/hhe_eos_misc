@@ -1,4 +1,5 @@
 from misc import misc_sch, misc_lor, misc_brygoo
+from eos import cms_eos
 import numpy as np
 from scipy.interpolate import interp1d
 from scipy.optimize import root
@@ -12,11 +13,11 @@ mh = 1
 mhe = 4.0026
 
 def x_to_Y(x):
-    # x is the helium number fraction
-    # converts number fraction to mass fraction
+    """Converts from number fraction to mass fraction"""
     return (mhe*x/(mh*(1-x) + mhe*x))
 
 def Y_to_x(Y):
+    """Converts from mass fraction to number fraction"""
     return (Y/mhe/(Y/mhe + (1-Y)/mh))
 
 def get_misc_p(logp, Y, misc, delta_T, bry_sigma=0):
@@ -75,6 +76,27 @@ def get_y_misc(logp, logt, misc):
         return float(sol.x)
     sol = root(x_err, np.zeros(len(p))+0.08, tol=1e-10, method='hybr', args=(p, t, misc))
     return x_to_Y(sol.x)
+
+
+### composition derivatives for implicit scheme ###
+def get_dydt_misc(logp, logt, misc_curve, dt=0.1):
+    T0 = 10**logt
+    T1 = T0*(1+dt)
+    Y0 = get_y_misc(logp, logt, misc_curve)
+    Y1 = get_y_misc(logp, np.log10(T1), misc_curve)
+
+    return (Y1 - Y0)/(T1 - T0)
+
+def get_dyds_misc(logp, logt, misc_curve, dt=0.1):
+    T0 = 10**logt
+    T1 = T0*(1+dt)
+    Y0 = get_y_misc(logp, logt, misc_curve)
+    Y1 = get_y_misc(logp, np.log10(T1), misc_curve)
+
+    S0 = cms_eos.get_s_pt(logp, logt, Y0)
+    S1 = cms_eos.get_s_pt(logp, logt, Y1)
+
+    return (Y1 - Y0)/(S1 - S0)
 
 # def get_y_misc(logp, logt, misc_curve='s', delta_T=0, sigma=0):
 #     """ This function returns the helium fraction at which any

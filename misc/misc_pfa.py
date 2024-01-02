@@ -8,6 +8,9 @@ from astropy.constants import G, M_jup, M_earth, R_jup, R_earth
 from astropy.constants import u as amu
 kb = k_B.to('eV / K').value
 
+"""This file provides the miscibility curves from
+    Pfaffenzeller et al. (1995)."""
+
 pvals = np.linspace(0.1, 24, 50)
 
 mh = 1
