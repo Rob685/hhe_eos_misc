@@ -14,6 +14,18 @@ from astropy.constants import u as amu
 import pdb
 from tqdm import tqdm
 
+"""This file reads the Lorenzen et al (2009, 2011) immiscibility data.
+    The original data was scrapped from their papers, and the files are
+    different for each isobar. The files contain the demixing temperature
+    as a function of helium number fraction (x). 
+    
+    First, I read the files, then I use a regular grid interpolator to
+    obtain T(P, x), or the demixing temperature as a function of pressure
+    and helium number fraction. 
+    
+    Then, I return the miscibility curves in the adequate pressure range 
+    with the get_misc_curve function."""
+
 erg_to_kbbar = (u.erg/u.Kelvin/u.gram).to(k_B/amu)
 MJ_to_kbbar = (u.MJ/u.Kelvin/u.kg).to(k_B/amu)
 dyn_to_bar = (u.dyne/(u.cm)**2).to('bar')
@@ -42,13 +54,9 @@ he_fracs = [l1, l2, l4, l10, l24]
 pressures = np.array([1, 2, 4, 10, 24])
 
 def x_to_Y(x):
-    # x is the helium number fraction
-    # converts number fraction to mass fraction
-    #return (mhe*x/(mh*(1-x) + mhe*x)).value
     return (mhe*x/(mh*(1-x) + mhe*x))
 
 def Y_to_x(Y):
-    #return (mh*Y/(mhe*(1-Y) + mh*Y))
     return (Y/mhe/(Y/mhe + (1-Y)/mh))
 
 interp_1Mbar = interp1d(l1['x'], l1['T'], kind='linear', fill_value='extrapolate')
@@ -57,9 +65,11 @@ interp_4Mbar = interp1d(l4['x'], l4['T'], kind='linear', fill_value='extrapolate
 interp_10Mbar = interp1d(l10['x'], l10['T'], kind='linear', fill_value='extrapolate')
 interp_24Mbar = interp1d(l24['x'], l24['T'], kind='linear', fill_value='extrapolate')
 
+# The Lorenzen curves are non-monotonic at low pressures (1 Mbar)
+# Therefore, I limit the the curves to within 0.4 in number fraction (~0.7 in mass fraction)
 xgrid = np.arange(np.min(l1['x']), np.max(l1['x']), 0.001) 
-#xgrid = np.insert(xgrid, 0, 0)
 
+# Each demixing temperature range is different, so I interpolate across all isobars here
 interp_list = [interp_1Mbar, interp_2Mbar, interp_4Mbar, interp_10Mbar, interp_24Mbar]
 
 T_res = []
@@ -72,14 +82,16 @@ get_t_x_rgi_cubic = RGI((pressures, xgrid), T_res, method='cubic', bounds_error=
 get_t_x_rgi_linear = RGI((pressures, xgrid), T_res, method='linear', bounds_error=False, fill_value=None)
 
 def get_misc_curve(logp, Y):
+    """This function returns the demixing temperatures and provides
+    a miscibility curve profile given pressure and helium mass fraction
+    profiels"""
     x = Y_to_x(Y)
     p_prof = 10**(logp-12)
 
-    p1_cut = 4.0 # works with 4 but has trouble at 5 Gyr, trying it out with 10
+    p1_cut = 4.0
     p2_cut = 24.0
     t_new_low = get_t_x_rgi_cubic(np.array([p_prof[(p_prof > 1.0) & (p_prof < p1_cut)], x[(p_prof > 1.0) & (p_prof <= p1_cut)]]).T) # smoothness at lower pressures
     t_new_high = get_t_x_rgi_linear(np.array([p_prof[(p_prof > p1_cut) & (p_prof < p2_cut)], x[(p_prof > p1_cut) & (p_prof < p2_cut)]]).T) # flat at higher pressures
-    #t_new = get_t_x_rgi_cubic(np.array([p_prof, x]).T)
 
     t_new = np.concatenate([t_new_low, t_new_high])
 
