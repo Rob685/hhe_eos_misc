@@ -1,7 +1,7 @@
 from astropy import units as u
 from astropy.constants import u as amu
 from astropy.constants import k_B, m_e, m_p, m_n
-
+"""This file contains frequently used constants"""
 
 R_jup = 7.15e9 #6.99e9
 M_jup = 1.89914e30

@@ -7,7 +7,9 @@ from scipy.optimize import root
 """ This file calls the individual miscibility curves and 
     contains wrappers to get the miscibility curves, the
     immiscibility regions, and the immiscible helium mass
-    fractions. """
+    fractions. 
+    
+    Authors: Roberto Tejada Arevalo"""
 
 mh = 1
 mhe = 4.0026
