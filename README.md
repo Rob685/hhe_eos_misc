@@ -15,7 +15,7 @@ This is a common repository for H-He equations of state and miscibility curves. 
 ## Tutorials
 
 Please start with the [eos](https://github.com/Rob685/hhe_eos_misc/blob/main/eos_tutorial.ipynb) and [miscibility](https://github.com/Rob685/hhe_eos_misc/blob/main/misc_tutorial.ipynb) tutorials instructions. 
-For a tutorial on the EOS derivatives, visit the  [derivatives] (https://github.com/Rob685/hhe_eos_misc/blob/main/eos_derivatives_tutorial.ipynb) tutorial.
+For a tutorial on the EOS derivatives, visit the  [derivatives](https://github.com/Rob685/hhe_eos_misc/blob/main/eos_derivatives_tutorial.ipynb) tutorial.
 
 ## EOS Quantities provided
 
