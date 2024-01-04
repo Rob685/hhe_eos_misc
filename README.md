@@ -2,11 +2,13 @@ Common repository for H-He equations of state and miscibility curves. The H-He m
 
 To download and use these tables, 
 
-1. ```git lfs install```
-2. ```git clone https://github.com/Rob685/hhe_eos_misc.git```
-3. ```git submodule init && git submodule update```
-4. ```cd eos```
-5. ```git checkout main```
+1. Follow the steps to install git lfs on https://git-lfs.com/
+2. ```git lfs install```
+3. ```git clone https://github.com/Rob685/hhe_eos_misc.git```
+4. ```cd hhe_eos_misc```
+5. ```git submodule init && git submodule update```
+6. ```cd eos```
+7. ```git checkout main```
 
 Please start with the tutorials instructions to access the equations of state (`eos_tutorial.ipynb`) and their derivatives (`eos_derivatives_turorial.ipynb`), along with the miscibility curves or demixing temperatures (`misc_tutorial.ipynb`).
 
