@@ -42,6 +42,7 @@ z_0 = np.zeros(len(logpgrid))
 
 ...
 ```
+The `mixtures_eos` file provides H-He-Z mixtures with the AQUA tables. A zero metallicity array input yields the H-He EOS, chosen by the `hh_eos` argument in the functions. 
 
 See the eos tutorial for more information.
 
