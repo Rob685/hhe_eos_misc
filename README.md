@@ -12,7 +12,10 @@ This is a common repository for H-He equations of state and miscibility curves. 
 6. ```cd eos```
 7. ```git checkout main```
 
-Please start with the tutorials instructions to access the equations of state (`eos_tutorial.ipynb`) and their derivatives (`eos_derivatives_turorial.ipynb`), along with the miscibility curves or demixing temperatures (`misc_tutorial.ipynb`).
+## Tutorials
+
+Please start with the [eos](https://github.com/Rob685/hhe_eos_misc/blob/main/eos_tutorial.ipynb) and [miscibility](https://github.com/Rob685/hhe_eos_misc/blob/main/misc_tutorial.ipynb) tutorials instructions. 
+For a tutorial on the EOS derivatives, visit the  [derivatives] (https://github.com/Rob685/hhe_eos_misc/blob/main/eos_derivatives_tutorial.ipynb) tutorial.
 
 ## EOS Quantities provided
 
@@ -21,5 +24,35 @@ The following table outlines the quantites provided by the equation of state mod
 <img width="603" alt="Screenshot 2023-12-30 at 20 01 17" src="https://github.com/Rob685/eos/assets/48569647/5c18c88b-c64a-425a-ac1b-87cb204fc16c">
 
 In this table, the headers are the independent thermodynamic variables and the quantities are the dependent variables and derivatives. See Tejada Arevalo et al. (2024) for a full description of these quantities.
+
+## Importing
+
+To access the EOS tables, import the ```eos``` module and select which EOS table to call:
+
+```
+from eos import cms_eos
+```
+to import the CMS19+HG23 EOS, for example, or import the `mixtures_eos` file and set zero metallicity,
+
+```
+from eos import mixtures_eos
+
+logpgrid = np.linspace(6, 14, 100) # from 1 bar to 100 Mbar
+z_0 = np.zeros(len(logpgrid))
+
+...
+```
+
+See the eos tutorial for more information.
+
+Similarly, you can import the miscibility module 
+
+```
+from misc import misc
+```
+
+which will give access to the miscibility curve of one's choice. See the miscibility tutorial for more details.
+
+
 
 
