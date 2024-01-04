@@ -17,15 +17,7 @@ This is a common repository for H-He equations of state and miscibility curves. 
 Please start with the [eos](https://github.com/Rob685/hhe_eos_misc/blob/main/eos_tutorial.ipynb) and [miscibility](https://github.com/Rob685/hhe_eos_misc/blob/main/misc_tutorial.ipynb) tutorials instructions. 
 For a tutorial on the EOS derivatives, visit the  [derivatives](https://github.com/Rob685/hhe_eos_misc/blob/main/eos_derivatives_tutorial.ipynb) tutorial.
 
-## EOS Quantities provided
-
-The following table outlines the quantites provided by the equation of state module:
-
-<img width="603" alt="Screenshot 2023-12-30 at 20 01 17" src="https://github.com/Rob685/eos/assets/48569647/5c18c88b-c64a-425a-ac1b-87cb204fc16c">
-
-In this table, the headers are the independent thermodynamic variables and the quantities are the dependent variables and derivatives. See Tejada Arevalo et al. (2024) for a full description of these quantities.
-
-## Importing
+### Importing
 
 To access the EOS tables, import the ```eos``` module and select which EOS table to call:
 
@@ -53,6 +45,16 @@ from misc import misc
 ```
 
 which will give access to the miscibility curve of one's choice. See the miscibility tutorial for more details.
+
+## EOS Quantities provided
+
+The following table outlines the quantites provided by the equation of state module:
+
+<img width="603" alt="Screenshot 2023-12-30 at 20 01 17" src="https://github.com/Rob685/eos/assets/48569647/5c18c88b-c64a-425a-ac1b-87cb204fc16c">
+
+In this table, the headers are the independent thermodynamic variables and the quantities are the dependent variables and derivatives. See Tejada Arevalo et al. (2024) for a full description of these quantities.
+
+
 
 
 
