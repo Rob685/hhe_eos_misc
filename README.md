@@ -104,7 +104,7 @@ The H-He tables span a wide section of parameter space relevant to gas giant pla
  
 ### SCvH95
 
-- $(P, T)$ tables (original from CMS19 publication):
+- $(P, T)$ tables:
   - $\log_{10}{P} \in$ [6.0, 14.0] $\rm{dyne}\ \rm{cm}^{-2}$ by $\Delta \log_{10}{P} = 0.01\ \rm{dyne}\ \rm{cm}^{-2}$
   - $\log_{10}{T} \in$ [2.1, 5.0] $K$ by $\Delta \log_{10}{T} = 0.05\ K$
   - $ Y \in $ [0.22, 0.98] by $\Delta Y = 0.02$
@@ -123,6 +123,28 @@ The H-He tables span a wide section of parameter space relevant to gas giant pla
   - $s \in$ [5.0, 17.0] $k_b/\rm{baryon}$ by $\Delta s = 0.1$ $k_b/\rm{baryon}$
   - $\log_{10}{\rho} \in$ [-5, 1.5] $\rm{g} \rm{cm}^{-3}$ by $\Delta \log_{10}{\rho} = 0.03$ $\rm{g} \rm{cm}^{-3}$
   - $ Y \in $ [0.22, 0.98] by $\Delta Y = 0.02$
+ 
+### MH13
+
+- $(P, T)$ tables:
+  - $\log_{10}{P} \in$ [5.0, 14.0] $\rm{dyne}\ \rm{cm}^{-2}$ by $\Delta \log_{10}{P} = 0.09\ \rm{dyne}\ \rm{cm}^{-2}$
+  - $\log_{10}{T} \in$ [2.1, 5.0] $K$ by $\Delta \log_{10}{T} = 0.03\ K$
+  - $ Y \in $ [0.246575, 1.0] by arbitrary amount, AVL. 
+
+- $(\rho, T)$ tables:
+  - $\log_{10}{\rho} \in$ [-5, 1.5] $\rm{g} \rm{cm}^{-3}$ by $\Delta \log_{10}{\rho} = 0.03$ $\rm{g} \rm{cm}^{-3}$
+  - $\log_{10}{T} \in$ [2.1, 5.0] $K$ by $\Delta \log_{10}{T} = 0.05\ K$
+  - $ Y \in $ [0.246575, 1.0] by arbitrary amount, AVL. 
+ 
+- $(S, P)$ tables:
+  - $s \in$ [5.0, 10.0] $k_b/\rm{baryon}$ by $\Delta s = 0.1$ $k_b/\rm{baryon}$
+  - $\log_{10}{P} \in$ [5.0, 14.0] $\rm{dyne}\ \rm{cm}^{-2}$ by $\Delta \log_{10}{P} = 0.09\ \rm{dyne}\ \rm{cm}^{-2}$
+  - $ Y \in $ [0.246575, 1.0] by $\Delta Y = 0.01$
+ 
+- $(S, \rho)$ tables:
+  - $s \in$ [5.0, 10.0] $k_b/\rm{baryon}$ by $\Delta s = 0.1$ $k_b/\rm{baryon}$
+  - $\log_{10}{\rho} \in$ [-5, 1.5] $\rm{g} \rm{cm}^{-3}$ by $\Delta \log_{10}{\rho} = 0.03$ $\rm{g} \rm{cm}^{-3}$
+  - $ Y \in $ [0.246575, 1.0] by $\Delta Y = 0.01$
 
 
 
