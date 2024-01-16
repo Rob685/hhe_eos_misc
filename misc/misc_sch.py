@@ -58,30 +58,29 @@ for i, p in enumerate(pressures):
 get_t_x_rgi_cubic = RGI((pressures, xgrid), T_res, method='cubic', bounds_error=False, fill_value=None)
 get_t_x_rgi_linear = RGI((pressures, xgrid), T_res, method='linear', bounds_error=False, fill_value=None)
 
-def get_misc_curve(logp, Y):
-    """This function returns the demixing temperatures and provides
-    a miscibility curve profile given pressure and helium mass fraction
-    profiels"""
+def get_misc_curve(logp, Y, misc_interp='linear'):
     x = Y_to_x(Y)
     p_prof = 10**(logp-12)
 
-    p0_cut = 1.5
-    p1_cut = 4.0
+    p0_cut = 0.5
+    p1_cut = 4.0 # works with 4 but has trouble at 5 Gyr, trying it out with 10
     p2_cut = 24.0
-    t_new_low1 = get_t_x_rgi_linear(np.array([p_prof[(p_prof > 0.5) & (p_prof < p0_cut)], x[(p_prof > 0.5) & (p_prof <= p0_cut)]]).T) # smoothness at lower pressures
-    t_new_low2 = get_t_x_rgi_cubic(np.array([p_prof[(p_prof >= p0_cut) & (p_prof < p1_cut)], x[(p_prof >= p0_cut) & (p_prof <= p1_cut)]]).T) # smoothness at lower pressures
+    if misc_interp=='cubic':
+        t_new_low = get_t_x_rgi_cubic(np.array([p_prof[(p_prof > p0_cut) & (p_prof < p1_cut)], x[(p_prof > p0_cut) & (p_prof <= p1_cut)]]).T)
+    else:
+        t_new_low = get_t_x_rgi_linear(np.array([p_prof[(p_prof > p0_cut) & (p_prof < p1_cut)], x[(p_prof > p0_cut) & (p_prof <= p1_cut)]]).T) # smoothness at lower pressures
     t_new_high = get_t_x_rgi_linear(np.array([p_prof[(p_prof > p1_cut) & (p_prof < p2_cut)], x[(p_prof > p1_cut) & (p_prof < p2_cut)]]).T) # flat at higher pressures
 
-    t_new = np.concatenate([t_new_low1, t_new_low2, t_new_high])
+    t_new = np.concatenate([t_new_low, t_new_high])
 
-    p_misc = p_prof[(p_prof > 0.5) & (p_prof < 24.0)]
+    p_misc = p_prof[(p_prof > p0_cut) & (p_prof < p2_cut)]
 
     t_new = np.insert(t_new, 0, 0)
     p_misc = np.insert(p_misc, 0, 0)
 
-    t_interp_smooth = interp1d(p_misc, t_new, kind='cubic')
+    t_interp_smooth = interp1d(p_misc, t_new, kind=misc_interp)
 
-    return p_prof[p_prof < 24], t_interp_smooth(p_prof[p_prof < 24])
+    return p_prof[p_prof < p2_cut], t_interp_smooth(p_prof[p_prof < p2_cut])
 
 ########## OLD CODE, RETURNS UNMOOTH CURVES #############
 # # list of isobars and corresponding pressures
