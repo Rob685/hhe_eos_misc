@@ -1,4 +1,4 @@
-# Python Interface for Hydrogen-Helium Equations for Planetary Evolution Models [![DOI](https://zenodo.org/badge/737449342.svg)](https://zenodo.org/doi/10.5281/zenodo.10659198)
+# Python Interface for Hydrogen-Helium Equations of State for Planetary Evolution Models [![DOI](https://zenodo.org/badge/737449342.svg)](https://zenodo.org/doi/10.5281/zenodo.10659198)
 
 # Start Here
 
