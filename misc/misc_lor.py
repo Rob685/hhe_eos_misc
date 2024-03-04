@@ -85,7 +85,7 @@ def get_misc_curve(logp, Y, misc_interp='linear'):
     x = Y_to_x(Y)
     p_prof = 10**(logp-12)
 
-    p0_cut = 0.5
+    p0_cut = 1.0
     p1_cut = 4.0 
     p2_cut = 50.0
     if misc_interp=='cubic':
