@@ -2,4 +2,7 @@ __pycache__/
 .DS_Store
 *.pyc
 *.ipynb
-gonzales_eos/*
+gonzales_eos/
+eos/scvh/eos_adam/*
+*.ipynb_checkpoints
+H+AQUA tables.ipynb
