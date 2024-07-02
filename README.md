@@ -1,4 +1,4 @@
-# Python Interface for Hydrogen-Helium Equations of State for Planetary Evolution Models [![DOI](https://zenodo.org/badge/737449342.svg)](https://zenodo.org/doi/10.5281/zenodo.10659198)
+# The data and code for Equations of State, Thermodynamics, and Miscibility Curves for Jovian Planet and Giant Exoplanet Evolutionary Models [![DOI](https://zenodo.org/badge/737449342.svg)](https://zenodo.org/doi/10.5281/zenodo.10659198)
 
 # Start Here
 
