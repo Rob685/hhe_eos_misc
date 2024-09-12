@@ -1,6 +1,10 @@
+import matplotlib.pyplot as plt
 import numpy as np
 from eos import mixtures_eos
+from scipy.optimize import root, root_scalar
+
 erg_to_kbbar = mixtures_eos.erg_to_kbbar
+
 from tqdm import tqdm
 from scipy.interpolate import RegularGridInterpolator as RGI
 from scipy.optimize import root
@@ -39,7 +43,8 @@ def inversion_z(xgrid, ygrid, hegrid, zgrid, basis, xy_eos, z_eos, hg=True):
                         try:
                             res1 = mixtures_eos.get_p_srho(xarr, yarr, hearr, zgrid, \
                                                         hhe_eos=xy_eos, z_eos=z_eos, hg=hg)
-                            res2 = mixtures_eos.get_t_sp_tab(xarr, res1, hearr, zgrid, hhe_eos=xy_eos, hg=hg)
+                            res2 = mixtures_eos.get_t_sp(xarr, res1, hearr, zgrid, hhe_eos=xy_eos, hg=hg)
+                                                        #hhe_eos=xy_eos, alg='root', z_eos=z_eos)
                         except ValueError:                        
                             #print(res1)
                             raise Exception('Failed at s = {}, rho = {}, y = {}'.format(xarr[0], yarr[0], hearr[0]))
@@ -61,19 +66,19 @@ def inversion_z(xgrid, ygrid, hegrid, zgrid, basis, xy_eos, z_eos, hg=True):
 
     return sol1, sol2
 
-svals_srho = np.arange(3.0, 9.1, 0.1)
-logrhovals_srho = np.linspace(-4.0, 2.0, 100)
-yvals_srho = np.arange(0.05, 0.9, 0.05)
-zvals_srho = np.arange(0, 0.92, 0.02)
+svals_srho_cd = np.arange(1.5, 10.1, 0.1)
+logrhovals_srho_cd = np.linspace(-4.0, 2.0, 75)
+yvals_srho_cd = np.arange(0.02, 1.0, 0.05)
+zvals_srho_cd = np.arange(0, 1.05, 0.05)
 
 print('Starting S, rho process ...')
 
 # I can use the tables produced here to calculate P_srho later since some of the inversions are not converging
 # for the P_srho. This is akin to using the P(rho, T) tables for the Tsrho inversions.
 # This then by-passes the P(rho,T) inversion.
-logp_res_srho, logt_res_srho = inversion_z(svals_srho, logrhovals_srho, yvals_srho, zvals_srho, \
-                                        basis='srho', xy_eos='cms', z_eos='aqua', hg=True)
+logp_res_srho, logt_res_srho = inversion_z(svals_srho_cd, logrhovals_srho_cd, yvals_srho_cd, zvals_srho_cd, \
+                                        basis='srho', xy_eos='cd', z_eos='fo')
 
-np.save('eos/cms/srho_base_z_aqua_cms_hg_updated_dense.npy', [logp_res_srho, logt_res_srho])
+np.save('eos/cd/srho_base_z_forsterite_cd_lows_highs_extended_pbased.npy', [logp_res_srho, logt_res_srho])
 
 print('Finished and saved!')

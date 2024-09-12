@@ -1,6 +1,10 @@
+import matplotlib.pyplot as plt
 import numpy as np
 from eos import mixtures_eos
+from scipy.optimize import root, root_scalar
+
 erg_to_kbbar = mixtures_eos.erg_to_kbbar
+
 from tqdm import tqdm
 from scipy.interpolate import RegularGridInterpolator as RGI
 from scipy.optimize import root
@@ -40,6 +44,7 @@ def inversion_z(xgrid, ygrid, hegrid, zgrid, basis, xy_eos, z_eos, hg=True):
                             res1 = mixtures_eos.get_p_srho(xarr, yarr, hearr, zgrid, \
                                                         hhe_eos=xy_eos, z_eos=z_eos, hg=hg)
                             res2 = mixtures_eos.get_t_sp(xarr, res1, hearr, zgrid, hhe_eos=xy_eos, hg=hg)
+                                                        #hhe_eos=xy_eos, alg='root', z_eos=z_eos)
                         except ValueError:                        
                             #print(res1)
                             raise Exception('Failed at s = {}, rho = {}, y = {}'.format(xarr[0], yarr[0], hearr[0]))
@@ -61,19 +66,19 @@ def inversion_z(xgrid, ygrid, hegrid, zgrid, basis, xy_eos, z_eos, hg=True):
 
     return sol1, sol2
 
-logrhovals_rhot = np.linspace(-5.0, 2.0, 100)
-logtvals_rhot = np.arange(2, 5.05, 0.05)
-yvals_rhot = np.arange(0.05, 0.95, 0.05)
-zvals_rhot = np.arange(0, 0.91, 0.01)
+logrhovals_rhot_cd = np.linspace(-5.0, 2.0, 100)
+logtvals_rhot_cd = np.arange(2.1, 5.05, 0.05)
+yvals_rhot_cd = np.arange(0.02, 1.0, 0.05)
+zvals_rhot_cd = np.arange(0.0, 1.05, 0.05) # dense grid of Z
 
 print('Starting rho, T process ...')
 
 # I can use the tables produced here to calculate P_srho later since some of the inversions are not converging
 # for the P_srho. This is akin to using the P(rho, T) tables for the Tsrho inversions.
 # This then by-passes the P(rho,T) inversion.
-logp_res_rhot, s_res_rhot = inversion_z(logrhovals_rhot, logtvals_rhot, yvals_rhot, zvals_rhot, \
-                                        basis='rhot', xy_eos='cms', z_eos='aqua', hg=True)
+logp_res_rhot, s_res_rhot = inversion_z(logrhovals_rhot_cd, logtvals_rhot_cd, yvals_rhot_cd, zvals_rhot_cd, \
+                                        basis='rhot', xy_eos='cd', z_eos='fo')
 
-np.save('eos/cms/rhot_base_z_aqua_cms_hg_updated_dense.npy', [logp_res_rhot, s_res_rhot])
+np.save('eos/cd/rhot_base_z_forsterite_extended.npy', [logp_res_rhot, s_res_rhot])
 
 print('Finished and saved!')
