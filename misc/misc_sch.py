@@ -21,14 +21,14 @@ import pdb
 
 # Reading data
 
-s05 = pd.read_csv('misc/schoettler_nonideal_data/schoettler_0_5Mbar.csv', names = ['x', 'T']).sort_values('x')
-s1 = pd.read_csv('misc/schoettler_nonideal_data/schoettler_1Mbar.csv', names = ['x', 'T']).sort_values('x')
-s1_2 = pd.read_csv('misc/schoettler_nonideal_data/schoettler_1_2Mbar.csv', names = ['x', 'T']).sort_values('x')
-s1_5 = pd.read_csv('misc/schoettler_nonideal_data/schoettler_1_5Mbar.csv', names = ['x', 'T']).sort_values('x')
-s2 = pd.read_csv('misc/schoettler_nonideal_data/schoettler_2Mbar.csv', names = ['x', 'T']).sort_values('x')
-s4 = pd.read_csv('misc/schoettler_nonideal_data/schoettler_4Mbar.csv', names = ['x', 'T']).sort_values('x')
-s10 = pd.read_csv('misc/schoettler_nonideal_data/schoettler_10Mbar.csv', names = ['x', 'T']).sort_values('x')
-s24 = pd.read_csv('misc/schoettler_nonideal_data/schoettler_24Mbar.csv', names = ['x', 'T']).sort_values('x')
+s05 = pd.read_csv('misc/schoettler_nonideal_data/sr18_0_5.csv', names = ['x', 'T']).sort_values('x')
+s1 = pd.read_csv('misc/schoettler_nonideal_data/sr18_1.csv', names = ['x', 'T']).sort_values('x')
+s1_2 = pd.read_csv('misc/schoettler_nonideal_data/sr18_1_2.csv', names = ['x', 'T']).sort_values('x')
+s1_5 = pd.read_csv('misc/schoettler_nonideal_data/sr18_1_5_pad.csv', names = ['x', 'T']).sort_values('x')
+s2 = pd.read_csv('misc/schoettler_nonideal_data/sr18_2.csv', names = ['x', 'T']).sort_values('x')
+s4 = pd.read_csv('misc/schoettler_nonideal_data/sr18_4.csv', names = ['x', 'T']).sort_values('x')
+s10 = pd.read_csv('misc/schoettler_nonideal_data/sr18_10.csv', names = ['x', 'T']).sort_values('x')
+s24 = pd.read_csv('misc/schoettler_nonideal_data/sr18_24.csv', names = ['x', 'T']).sort_values('x')
 
 # list of isobars and corresponding pressures
 isobars = [s05, s1, s1_2, s1_5, s2, s4, s10, s24]

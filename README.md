@@ -1,6 +1,12 @@
-# Python Interface for Hydrogen-Helium Equations of State for Planetary Evolution Models [![DOI](https://zenodo.org/badge/737449342.svg)](https://zenodo.org/doi/10.5281/zenodo.10659198)
+# The data and code for Equations of State, Thermodynamics, and Miscibility Curves for Jovian Planet and Giant Exoplanet Evolutionary Models [![DOI](https://zenodo.org/badge/737449342.svg)](https://zenodo.org/doi/10.5281/zenodo.10659198)
 
 # Start Here
+
+Authors:
+- Tejada Arevalo, Roberto [ORCID: 0000-0001-6708-3427]
+- Su, Yubo [ORCID: 0000-0001-8283-3425]
+- Sur, Ankan [ORCID: 0000-0001-6635-5080]
+- Burrows, Adam [ORCID: 0000-0002-3099-5024]
 
 This is a common repository for H-He equations of state and miscibility curves. The H-He miscibility curves come from [Lorenzen et al. (2009, 2011)](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.84.235109) and [Schöttler & Redmer (2018)](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.120.115703). The H-He equations of state come from [Saumon et al. (1995; SCvH)](https://ui.adsabs.harvard.edu/abs/1995ApJS...99..713S/abstract), [Militzer & Hubbard (2013; MH13)](https://iopscience.iop.org/article/10.1088/0004-637X/774/2/148/meta), [Chabrier et al. (2019; CMS19)](https://iopscience.iop.org/article/10.3847/1538-4357/aaf99f/meta), [Chabrier & Debras (2021; CD21)](https://iopscience.iop.org/article/10.3847/1538-4357/abfc48/meta), and [Mazevet et al. (2022; MLS22)](https://www.aanda.org/articles/aa/abs/2022/08/aa35764-19/aa35764-19.html). The CMS and MLS EOSes are supplemented by the work of [Howard et al. (2023a)](https://www.aanda.org/articles/aa/pdf/2023/04/aa44851-22.pdf) to account for the non-ideal entropy and volume interactions they calculated from MH13 and CD21. Moreover, we calculate H-He-Z mixutures using a water EOS from [Haldemann et al. (2020)](https://www.aanda.org/articles/aa/full_html/2020/11/aa38367-20/aa38367-20.html), iron, and post-perovskite EOSes from [Jisheng Zhang](https://astro.uchicago.edu/people/jisheng-zhang.php) (private communication). 
 
@@ -54,7 +60,7 @@ The following table outlines the quantites provided by the equation of state mod
 
 <img width="603" alt="Screenshot 2023-12-30 at 20 01 17" src="https://github.com/Rob685/eos/assets/48569647/5c18c88b-c64a-425a-ac1b-87cb204fc16c">
 
-In this table, the headers are the independent thermodynamic variables and the quantities are the dependent variables and derivatives. See [Tejada Arevalo et al. (2024; submitted to ApJ)](https://arxiv.org/abs/2401.04172) for a full description of these quantities.
+In this table, the headers are the independent thermodynamic variables and the quantities are the dependent variables and derivatives. See [Tejada Arevalo et al. (2024; submitted to ApJS)](https://arxiv.org/abs/2401.04172) for a full description of these quantities.
 
 ## Table ranges
 

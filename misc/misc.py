@@ -1,4 +1,4 @@
-from misc import misc_sch, misc_lor, misc_brygoo
+from misc import misc_sch, misc_lor, misc_brygoo, misc_pfa
 import numpy as np
 from scipy.interpolate import interp1d
 from scipy.interpolate import RegularGridInterpolator as RGI
@@ -34,8 +34,12 @@ def get_misc_p(logp, Y, misc, delta_T, bry_sigma=0, interp='linear'):
     elif misc=='b':
         pmisc, tmisc = misc_brygoo.get_misc_curve(logp, sigma=bry_sigma)
         return pmisc, tmisc+delta_T
+
+    elif misc=='p':
+        pmisc, tmisc = misc_pfa.get_misc_curve(Y)
+        return pmisc, tmisc+delta_T
     else:
-        print('misc. curve must be s, or l')
+        print('misc. curve must be s (for SR18), l for (L0911), or b (for Brygoo+21')
 
 def get_pgap(logp, logt, y, misc = 's', delta_T = 0, sigma=0, interp='linear'):
     """ This function returns the P-T miscibility gap points. 
@@ -92,35 +96,35 @@ def get_y_misc(logp, logt, misc, interp='linear'):
     sol = root(x_err, np.zeros(len(p))+0.08, tol=1e-10, method='hybr', args=(p, t, misc, interp))
     return x_to_Y(sol.x)
 
-logpgrid = np.linspace(6, 14, 100)
-logtgrid = np.linspace(2, 4, 150)
+# logpgrid = np.linspace(6, 14, 100)
+# logtgrid = np.linspace(2, 4, 150)
 
-y_misc_res_linear, y_misc_res_cubic = np.load('misc/y_misc_pt_tables.npy')
+# y_misc_res_linear, y_misc_res_cubic = np.load('misc/y_misc_pt_tables.npy')
 
-get_y_misc_rgi_linear = RGI((logpgrid, logtgrid), y_misc_res_linear, method='linear', \
-            bounds_error=False, fill_value=None)
+# get_y_misc_rgi_linear = RGI((logpgrid, logtgrid), y_misc_res_linear, method='linear', \
+#             bounds_error=False, fill_value=None)
 
-get_y_misc_rgi_cubic = RGI((logpgrid, logtgrid), y_misc_res_cubic, method='linear', \
-            bounds_error=False, fill_value=None)
+# get_y_misc_rgi_cubic = RGI((logpgrid, logtgrid), y_misc_res_cubic, method='linear', \
+#             bounds_error=False, fill_value=None)
 
-def get_y_misc_pt(logp, logt, misc_curve='l', interp='linear', tab=True):
-    """
-    logp in log10 of dyn/cm^2 and logt in log 10 of K.
-    """
-    if not tab:
-        return misc.get_y_misc(logp, logt, misc=misc_curve, interp=interp)
-    else:
-        if interp=='linear':
-            if np.isscalar(logp):
-                return float(get_y_misc_rgi_linear((logp, logt)))
-            else:
-                return get_y_misc_rgi_linear(np.array([logp, logt]).T)
+# def get_y_misc_pt(logp, logt, misc_curve='l', interp='linear', tab=True):
+#     """
+#     logp in log10 of dyn/cm^2 and logt in log 10 of K.
+#     """
+#     if not tab:
+#         return misc.get_y_misc(logp, logt, misc=misc_curve, interp=interp)
+#     else:
+#         if interp=='linear':
+#             if np.isscalar(logp):
+#                 return float(get_y_misc_rgi_linear((logp, logt)))
+#             else:
+#                 return get_y_misc_rgi_linear(np.array([logp, logt]).T)
             
-        elif interp=='cubic':
-            if np.isscalar(logp):
-                return float(get_y_misc_rgi_cubic((logp, logt)))
-            else:
-                return get_y_misc_rgi_cubic(np.array([logp, logt]).T)
+#         elif interp=='cubic':
+#             if np.isscalar(logp):
+#                 return float(get_y_misc_rgi_cubic((logp, logt)))
+#             else:
+#                 return get_y_misc_rgi_cubic(np.array([logp, logt]).T)
 
 
 ### composition derivatives for implicit scheme ###
