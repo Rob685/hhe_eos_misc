@@ -20,6 +20,12 @@ This is a common repository for H-He equations of state and miscibility curves. 
 6. ```cd eos```
 7. ```git checkout main```
 
+(!!!) IF YOU ENCOUNTER GIT LFS STORAGE ISSUES: Anyone can download a .zip file version stored here: https://drive.google.com/drive/u/1/folders/1V13BQLZ9_VKWoZQp6T5i7OXp8zreIrt7
+
+If you download the Google Drive zipfile: This zip file contains the entire EOS data and code presented in Tejada Arevalo et al. (2024). I realized that some users have encountered problems with Git LFS in the GitHub repository (https://github.com/Rob685/eos/tree/main), so this is another option for obtaining the EOS data. 
+
+Importantly, this is the [second release](https://zenodo.org/records/14194431) with an updated eos mixtures module called `eos_class.py`. This class handles all the available H-He-Z mixtures, with Z primarily being the water EOS of Haldemann et al (2020; AQUA).
+
 ## Tutorials
 
 Please start with the [eos](https://github.com/Rob685/hhe_eos_misc/blob/main/eos_tutorial.ipynb) and [miscibility](https://github.com/Rob685/hhe_eos_misc/blob/main/misc_tutorial.ipynb) tutorials instructions. 
