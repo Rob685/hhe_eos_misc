@@ -36,19 +36,19 @@ For a tutorial on the EOS derivatives, visit the  [derivatives](https://github.c
 To access the EOS tables, import the ```eos``` module and select which EOS table to call:
 
 ```
-from eos import cms_eos
-```
-to import the CMS19+HG23 EOS, for example, or import the `mixtures_eos` file and set zero metallicity,
+from eos import eos_class
 
-```
-from eos import mixtures_eos
+mix_aqua = eos_class.mixtures(hhe_eos='cd', z_eos='aqua', y_prime=True) # y_prime indicates whether the subsequent Y inputs are Y/(X+Y)
 
-logpgrid = np.linspace(6, 14, 100) # from 1 bar to 100 Mbar
-z_0 = np.zeros(len(logpgrid))
+logpgrid = np.linspace(6, 14, 100)
+logtval = np.full_like(logpgrid, 3.5) # isothermal example
+yval = np.full_like(logpgrid, 0.25)
+zval = np.full_like(logpgrid, 0.0) # H-He only example
 
-...
+s = mix_aqua.get_s_pt(logpgrid, logtval, yval, zval) # output in erg/g/K units
+logrho = mix_aqua.get_logrho_pt(logpgrid, logtval, yval, zval) # output in log10 g/cm^3
 ```
-The `mixtures_eos` file provides H-He-Z mixtures with the AQUA tables. A zero metallicity array input yields the H-He EOS, chosen by the `hh_eos` argument in the functions. 
+this imports the Chabrier & Debras (2021) EOS with zero metallicity. The `eos_class.py` file provides H-He-Z mixtures with the AQUA tables. A zero metallicity array input yields the H-He EOS, chosen by the `hh_eos` argument in the functions. 
 
 See the eos tutorial for more information.
 
